@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:task_app/screens/home/home.dart';
 import 'package:task_app/screens/stats/stats.dart';
+import 'package:task_app/screens/Friends/friends.dart';
 
 void main() {
   runApp(MyApp());
@@ -46,6 +47,7 @@ class _MyAppState extends State<TheApp> {
   final tabs = [
     HomePage(),
     Stats(),
+    Friends(),
   ];
 
   @override
@@ -75,7 +77,7 @@ class _MyAppState extends State<TheApp> {
         ],
       ),
       actions: [
-        Icon(Icons.more_vert,
+        Icon(Icons.message_rounded,
         color: Colors.black,
         size: 30,
         )
