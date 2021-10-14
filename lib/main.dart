@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:task_app/screens/home/home.dart';
+import 'package:task_app/screens/home/widgets/tasks.dart';
 import 'package:task_app/screens/stats/stats.dart';
 import 'package:task_app/screens/Friends/friends.dart';
 
@@ -46,6 +47,8 @@ class _MyAppState extends State<TheApp> {
 
   final tabs = [
     HomePage(),
+    Actus(),
+    My_Tasks(),
     Stats(),
     Friends(),
   ];
@@ -94,10 +97,11 @@ class _MyAppState extends State<TheApp> {
             selectedItemColor: Colors.yellow[700],
             unselectedItemColor: Colors.grey[200],
             items: [
-            BottomNavigationBarItem(label: 'Home', icon: Icon(Icons.home_rounded, size: 25), backgroundColor: Colors.yellow[900]),
+            BottomNavigationBarItem(label: 'Home', icon: Icon(Icons.home_rounded, size: 25), backgroundColor: Colors.black),
+            BottomNavigationBarItem(label: 'Actus', icon: Icon(Icons.new_releases_rounded, size: 25, color: Colors.black), backgroundColor: Colors.white),
+            BottomNavigationBarItem(label: 'My Tasks', icon: Icon(Icons.integration_instructions_rounded, size: 25), backgroundColor: Colors.grey),
             BottomNavigationBarItem(label: 'Stats', icon: Icon(Icons.auto_graph_rounded, size: 25), backgroundColor: Colors.red[900]),
             BottomNavigationBarItem(label: 'Friends', icon: Icon(Icons.people_rounded, size: 25), backgroundColor: Colors.blue[900]),
-            // BottomNavigationBarItem(label: 'FAQ', icon: Icon(Icons.integration_instructions_rounded, size: 25)),
           ],
            onTap: (index){
             setState(() {
