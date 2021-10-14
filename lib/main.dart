@@ -6,6 +6,7 @@ import 'package:task_app/screens/stats/stats.dart';
 import 'package:task_app/screens/Friends/friends.dart';
 import 'package:task_app/screens/my_tasks/my_tasks.dart';
 import 'package:task_app/screens/Actus/actus.dart';
+import 'package:task_app/screens/Connexion/signin.dart';
 
 void main() {
   runApp(MyApp());
@@ -52,7 +53,7 @@ class _MyAppState extends State<TheApp> {
     Actus(),
     MyTasks(),
     Stats(),
-    Friends(),
+    Signin(),
   ];
 
   @override
