@@ -1,18 +1,78 @@
 import 'package:flutter/material.dart';
 import 'package:task_app/screens/home/widgets/tasks.dart';
 import 'package:task_app/screens/home/widgets/topcard.dart';
+import 'package:task_app/screens/Connexion/logpage.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+// import 'package:authentification/Start.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
+  @override
+  _HomePageState createState() => _HomePageState();
+}
 
+class _HomePageState extends State<HomePage> {
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  late User user;
+  bool isloggedin = false;
 
+  checkAuthentification() async {
+    _auth.authStateChanges().listen((user) {
+      if (user == null) {
+        Navigator.of(context).pushReplacementNamed("logpage");
+      }
+    });
+  }
+
+  getUser() async {
+    User? firebaseUser = _auth.currentUser;
+    await firebaseUser?.reload();
+    firebaseUser = _auth.currentUser;
+
+    if (firebaseUser != null) {
+      setState(() {
+        this.user = firebaseUser!;
+        this.isloggedin = true;
+      });
+    }
+  }
+
+  signOut() async {
+    _auth.signOut();
+
+    final googleSignIn = GoogleSignIn();
+    await googleSignIn.signOut();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    this.checkAuthentification();
+    this.getUser();
+  }
 
   @override
 
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      // appBar: _buildAppBar(),
-      body: Column(
+      appBar: _buildAppBar(),
+      body: Container(
+      child: !isloggedin
+          ? CircularProgressIndicator()
+          // : Column(
+          //     children: <Widget>[
+          //       SizedBox(height: 40.0),
+          //       Container(
+          //         height: 300,
+          //         child: Image(
+          //           image: AssetImage("assets/images/avatar.png"),
+          //           fit: BoxFit.contain,
+          //         ),
+          //       ),
+      
+      : Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           TopCard(),
@@ -26,9 +86,10 @@ class HomePage extends StatelessWidget {
           ),
           Expanded(child: Tasks())
         ],
-      ),
+      )
       // bottomNavigationBar: _buildBottomNavigationBar(),
-    );
+               ));
+              //  ] )));
   }
 
   Widget _buildBottomNavigationBar() {
@@ -81,16 +142,16 @@ class HomePage extends StatelessWidget {
           Container(
             height: 45,
             width: 45,
-            margin: EdgeInsets.all(30),
+            // margin: EdgeInsets.all(30),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(12),
               child: Image.asset('assets/images/avatar.png'),
             )
           ),
           SizedBox(width: 10),
-          Text('Hi Pikachu !', style: TextStyle(
+          Text('Hi  ${user.displayName} !', style: TextStyle(
             color: Colors.black,
-            fontSize: 26,
+            fontSize: 22,
             fontWeight: FontWeight.bold,
           ))
         ],

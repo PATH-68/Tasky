@@ -7,10 +7,19 @@ import 'package:task_app/screens/Friends/friends.dart';
 import 'package:task_app/screens/my_tasks/my_tasks.dart';
 import 'package:task_app/screens/Actus/actus.dart';
 import 'package:task_app/screens/Connexion/signin.dart';
+import 'package:task_app/screens/Connexion/signup.dart';
+import 'package:task_app/screens/Connexion/logpage.dart';
+import 'package:firebase_core/firebase_core.dart';
 
-void main() {
-  runApp(MyApp());
-}
+// void main() {
+//   runApp(MyApp());
+// }
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+   runApp(MyApp());
+   }
 
 // class MyApp extends StatefulWidget {
 //   const MyApp({Key? key}) : super(key: key);
@@ -34,6 +43,13 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Task Handler',
       home: TheApp(),
+
+      routes: <String,WidgetBuilder>{
+
+        "signin" : (BuildContext context)=>Login(),
+        "signup":(BuildContext context)=>SignUp(),
+        "logpage":(BuildContext context)=>Logs(),
+      },
     );
   }
 }
@@ -53,42 +69,42 @@ class _MyAppState extends State<TheApp> {
     Actus(),
     MyTasks(),
     Stats(),
-    Signin(),
+    Friends(),
   ];
 
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(statusBarColor: Colors.transparent));
     return Scaffold(
-      appBar: AppBar(
-              backgroundColor: Colors.white70,
-      elevation: 5,
-      title: Row(
-        children: [
-          Container(
-            height: 45,
-            width: 45,
-            margin: EdgeInsets.all(30),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(12),
-              child: Image.asset('assets/images/avatar.png'),
-            )
-          ),
-          SizedBox(width: 10),
-          Text('Hi Pikachu !', style: TextStyle(
-            color: Colors.black,
-            fontSize: 26,
-            fontWeight: FontWeight.bold,
-          ))
-        ],
-      ),
-      actions: [
-        Icon(Icons.message_rounded,
-        color: Colors.black,
-        size: 30,
-        )
-      ],
-      ),
+      // appBar: AppBar(
+      //         backgroundColor: Colors.white70,
+      // elevation: 5,
+      // title: Row(
+      //   children: [
+      //     Container(
+      //       height: 45,
+      //       width: 45,
+      //       margin: EdgeInsets.all(30),
+      //       child: ClipRRect(
+      //         borderRadius: BorderRadius.circular(12),
+      //         child: Image.asset('assets/images/avatar.png'),
+      //       )
+      //     ),
+      //     SizedBox(width: 10),
+      //     Text('Hi Pikachu !', style: TextStyle(
+      //       color: Colors.black,
+      //       fontSize: 26,
+      //       fontWeight: FontWeight.bold,
+      //     ))
+      //   ],
+      // ),
+      // actions: [
+      //   Icon(Icons.message_rounded,
+      //   color: Colors.black,
+      //   size: 30,
+      //   )
+      // ],
+      // ),
 
       body: tabs[_currentIndex],
 
