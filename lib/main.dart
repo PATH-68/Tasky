@@ -69,7 +69,7 @@ class _MyAppState extends State<TheApp> {
     Actus(),
     MyTasks(),
     Stats(),
-    Friends(),
+    MyLoc(),
   ];
 
   @override
@@ -120,7 +120,7 @@ class _MyAppState extends State<TheApp> {
             BottomNavigationBarItem(label: 'Actus', icon: Icon(Icons.new_releases_rounded, size: 25), backgroundColor: Colors.purple),
             BottomNavigationBarItem(label: 'My Tasks', icon: Icon(Icons.integration_instructions_rounded, size: 25), backgroundColor: Colors.grey),
             BottomNavigationBarItem(label: 'Stats', icon: Icon(Icons.auto_graph_rounded, size: 25), backgroundColor: Colors.red[900]),
-            BottomNavigationBarItem(label: 'Friends', icon: Icon(Icons.people_rounded, size: 25), backgroundColor: Colors.blue[900]),
+            BottomNavigationBarItem(label: 'Localisation', icon: Icon(Icons.location_searching_rounded, size: 25), backgroundColor: Colors.blue[900]),
           ],
            onTap: (index){
             setState(() {
