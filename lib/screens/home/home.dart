@@ -71,7 +71,7 @@ class _HomePageState extends State<HomePage> {
           //           fit: BoxFit.contain,
           //         ),
           //       ),
-      
+          
       : Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -84,7 +84,21 @@ class _HomePageState extends State<HomePage> {
               fontWeight:FontWeight.bold,
             )),
           ),
-          Expanded(child: Tasks())
+          Expanded(child: Tasks()),
+
+           RaisedButton(
+                  padding: EdgeInsets.fromLTRB(70, 10, 70, 10),
+                  onPressed: signOut,
+                  child: Text('Signout',
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 20.0,
+                          fontWeight: FontWeight.bold)),
+                  color: Colors.orange,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20.0),
+                  ),
+                )
         ],
       )
       // bottomNavigationBar: _buildBottomNavigationBar(),
