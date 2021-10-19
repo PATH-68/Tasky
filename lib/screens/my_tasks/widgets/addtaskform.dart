@@ -91,6 +91,8 @@ class _TaskFormState extends State<TaskForm> {
                 timeLabelText: "Heure",
                 textInputAction: TextInputAction.done,
                 onChanged: (val) => setState(() => _deadline = val),
+                validator: (val) =>
+                    val!.isEmpty ? 'Veuillez selectionner une date!' : null,
               ),
               MaterialButton(
                 onPressed: () async {
