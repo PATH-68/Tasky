@@ -48,6 +48,7 @@ class _TaskFormState extends State<TaskForm> {
                 decoration: textInputDecoration.copyWith(
                     hintText: 'Nom de la Tâche',
                     prefixIcon: const Icon(Icons.article)),
+                textInputAction: TextInputAction.next,
                 validator: (val) =>
                     val!.isEmpty ? 'Veuillez entrez un nom de groupe' : null,
                 onChanged: (val) => setState(() => _taskName = val),
@@ -59,6 +60,7 @@ class _TaskFormState extends State<TaskForm> {
                 decoration: textInputDecoration.copyWith(
                     hintText: 'Importance de la tâche',
                     prefixIcon: const Icon(Icons.article)),
+                textInputAction: TextInputAction.next,
                 validator: (val) => val!.isEmpty
                     ? 'Veuillez entrez l\'importance de la tâche'
                     : null,
@@ -71,6 +73,7 @@ class _TaskFormState extends State<TaskForm> {
                 decoration: textInputDecoration.copyWith(
                     hintText: 'Type de tâche',
                     prefixIcon: const Icon(Icons.article)),
+                textInputAction: TextInputAction.next,
                 validator: (val) =>
                     val!.isEmpty ? 'Veuillez entrez un type de tâche' : null,
                 onChanged: (val) => setState(() => _taskType = val),
@@ -86,6 +89,7 @@ class _TaskFormState extends State<TaskForm> {
                 icon: const Icon(Icons.event),
                 dateLabelText: 'Date',
                 timeLabelText: "Heure",
+                textInputAction: TextInputAction.done,
                 onChanged: (val) => setState(() => _deadline = val),
               ),
               MaterialButton(
