@@ -16,6 +16,7 @@ class DatabaseService {
     });
   }
 
+  // Adding a New Task Group
   Future addTaskGroup(String? taskGroup) async {
     return await taskmanagerCollection
         .doc(uid)
@@ -23,6 +24,7 @@ class DatabaseService {
         .add({'group': taskGroup});
   }
 
+  // Adding a new tasks to the corresponding group
   Future addTask(String? designation, String? deadline, String? type,
       String? groupid, String? priority) async {
     return await taskmanagerCollection
@@ -39,6 +41,17 @@ class DatabaseService {
     });
   }
 
+  Future validateTask(String? groupid, String? taskid) async {
+    return await taskmanagerCollection
+        .doc(uid)
+        .collection('taskgroup')
+        .doc(groupid)
+        .collection('tasks')
+        .doc(taskid)
+        .update({'isDone': true});
+  }
+
+  // getting the Streams
   Stream<QuerySnapshot> getTaskGroup() {
     return taskmanagerCollection.doc(uid).collection('taskgroup').snapshots();
   }

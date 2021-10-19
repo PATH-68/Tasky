@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:task_app/models/user.dart';
@@ -68,8 +69,74 @@ class _TasksListState extends State<TasksList> {
                                         tasks.data!.docs[index]["designation"]),
                                     subtitle: Text(
                                         tasks.data!.docs[index]["deadline"]),
-                                    trailing: const Icon(Icons.edit),
-                                    onTap: () {}),
+                                    trailing: tasks.data!.docs[index]["isDone"]
+                                        ? const Icon(
+                                            Icons.check,
+                                            color: Colors.green,
+                                          )
+                                        : const Text("Valider"),
+                                    onTap: () {
+                                      !tasks.data!.docs[index]["isDone"]
+                                          ? showDialog(
+                                              context: context,
+                                              barrierDismissible: true,
+                                              builder: (BuildContext context) {
+                                                return AlertDialog(
+                                                  title: const Center(
+                                                      child:
+                                                          Text('Validation')),
+                                                  content: const Text(
+                                                      'Avez vous accomplit cette tâches?!'),
+                                                  actions: <Widget>[
+                                                    CupertinoDialogAction(
+                                                      child: const Text('Non'),
+                                                      onPressed: () {
+                                                        Navigator.of(context)
+                                                            .pop();
+                                                      },
+                                                    ),
+                                                    CupertinoDialogAction(
+                                                      child: const Text('Oui'),
+                                                      onPressed: () async {
+                                                        DatabaseService(
+                                                                uid: user.uid)
+                                                            .validateTask(
+                                                                widget.groupId,
+                                                                tasks
+                                                                    .data!
+                                                                    .docs[index]
+                                                                    .id);
+                                                        Navigator.of(context)
+                                                            .pop();
+                                                      },
+                                                    ),
+                                                  ],
+                                                );
+                                              },
+                                            )
+                                          : showDialog(
+                                              context: context,
+                                              barrierDismissible: true,
+                                              builder: (BuildContext context) {
+                                                return AlertDialog(
+                                                  title: const Center(
+                                                      child:
+                                                          Text('Validation')),
+                                                  content: const Text(
+                                                      'Cette tâches est déjà terminé!'),
+                                                  actions: <Widget>[
+                                                    CupertinoDialogAction(
+                                                      child: const Text('Ok!'),
+                                                      onPressed: () {
+                                                        Navigator.of(context)
+                                                            .pop();
+                                                      },
+                                                    ),
+                                                  ],
+                                                );
+                                              },
+                                            );
+                                    }),
                               ],
                             ),
                           );
