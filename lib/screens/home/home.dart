@@ -71,7 +71,7 @@ class _HomePageState extends State<HomePage> {
           //           fit: BoxFit.contain,
           //         ),
           //       ),
-      
+          
       : Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
