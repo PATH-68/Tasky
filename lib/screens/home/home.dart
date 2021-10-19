@@ -55,40 +55,54 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.white,
-        appBar: _buildAppBar(),
-        body: Container(
-            child: !isloggedin
-                ? CircularProgressIndicator()
-                // : Column(
-                //     children: <Widget>[
-                //       SizedBox(height: 40.0),
-                //       Container(
-                //         height: 300,
-                //         child: Image(
-                //           image: AssetImage("assets/images/avatar.png"),
-                //           fit: BoxFit.contain,
-                //         ),
-                //       ),
+      backgroundColor: Colors.white,
+      appBar: _buildAppBar(),
+      body: Container(
+      child: !isloggedin
+          ? CircularProgressIndicator()
+          // : Column(
+          //     children: <Widget>[
+          //       SizedBox(height: 40.0),
+          //       Container(
+          //         height: 300,
+          //         child: Image(
+          //           image: AssetImage("assets/images/avatar.png"),
+          //           fit: BoxFit.contain,
+          //         ),
+          //       ),
+          
+      : Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          TopCard(),
+          Container(
+            padding: EdgeInsets.all(15),
+            child: Text('Tasks',
+            style: TextStyle(
+              fontSize:24,
+              fontWeight:FontWeight.bold,
+            )),
+          ),
+          Expanded(child: Tasks()),
 
-                : Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      TopCard(),
-                      Container(
-                        padding: EdgeInsets.all(15),
-                        child: Text('Tasks',
-                            style: TextStyle(
-                              fontSize: 24,
-                              fontWeight: FontWeight.bold,
-                            )),
-                      ),
-                      Expanded(child: Tasks())
-                    ],
-                  )
-            // bottomNavigationBar: _buildBottomNavigationBar(),
-            ));
-    //  ] )));
+           RaisedButton(
+                  padding: EdgeInsets.fromLTRB(70, 10, 70, 10),
+                  onPressed: signOut,
+                  child: Text('Signout',
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 20.0,
+                          fontWeight: FontWeight.bold)),
+                  color: Colors.orange,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20.0),
+                  ),
+                )
+        ],
+      )
+      // bottomNavigationBar: _buildBottomNavigationBar(),
+               ));
+              //  ] )));
   }
 
   Widget _buildBottomNavigationBar() {

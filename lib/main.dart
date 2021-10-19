@@ -5,7 +5,7 @@ import 'package:task_app/models/user.dart';
 import 'package:task_app/screens/home/home.dart';
 import 'package:task_app/screens/home/widgets/tasks.dart';
 import 'package:task_app/screens/stats/stats.dart';
-import 'package:task_app/screens/Friends/friends.dart';
+import 'package:task_app/screens/localisation/localisation.dart';
 import 'package:task_app/screens/my_tasks/my_tasks.dart';
 import 'package:task_app/screens/Actus/actus.dart';
 import 'package:task_app/screens/Connexion/signin.dart';
@@ -72,7 +72,7 @@ class _MyAppState extends State<TheApp> {
     Actus(),
     MyTasks(),
     Stats(),
-    Friends(),
+    MyLoc(),
   ];
 
   @override
@@ -111,34 +111,19 @@ class _MyAppState extends State<TheApp> {
         // ),
 
         body: tabs[_currentIndex],
-        bottomNavigationBar: BottomNavigationBar(
-          currentIndex: _currentIndex,
-          backgroundColor: Colors.grey[900],
-          showSelectedLabels: true,
-          showUnselectedLabels: true,
-          selectedItemColor: Colors.yellow[700],
-          unselectedItemColor: Colors.grey[200],
-          items: [
-            BottomNavigationBarItem(
-                label: 'Home',
-                icon: Icon(Icons.home_rounded, size: 25),
-                backgroundColor: Colors.black),
-            BottomNavigationBarItem(
-                label: 'Actus',
-                icon: Icon(Icons.new_releases_rounded, size: 25),
-                backgroundColor: Colors.purple),
-            BottomNavigationBarItem(
-                label: 'My Tasks',
-                icon: Icon(Icons.integration_instructions_rounded, size: 25),
-                backgroundColor: Colors.grey),
-            BottomNavigationBarItem(
-                label: 'Stats',
-                icon: Icon(Icons.auto_graph_rounded, size: 25),
-                backgroundColor: Colors.red[900]),
-            BottomNavigationBarItem(
-                label: 'Friends',
-                icon: Icon(Icons.people_rounded, size: 25),
-                backgroundColor: Colors.blue[900]),
+    bottomNavigationBar: BottomNavigationBar(
+            currentIndex: _currentIndex,
+            backgroundColor: Colors.grey[900],
+            showSelectedLabels: true,
+            showUnselectedLabels: true,
+            selectedItemColor: Colors.yellow[700],
+            unselectedItemColor: Colors.grey[200],
+            items: [
+            BottomNavigationBarItem(label: 'Home', icon: Icon(Icons.home_rounded, size: 25), backgroundColor: Colors.black),
+            BottomNavigationBarItem(label: 'Actus', icon: Icon(Icons.new_releases_rounded, size: 25), backgroundColor: Colors.purple),
+            BottomNavigationBarItem(label: 'My Tasks', icon: Icon(Icons.integration_instructions_rounded, size: 25), backgroundColor: Colors.grey),
+            BottomNavigationBarItem(label: 'Stats', icon: Icon(Icons.auto_graph_rounded, size: 25), backgroundColor: Colors.red[900]),
+            BottomNavigationBarItem(label: 'Localisation', icon: Icon(Icons.location_searching_rounded, size: 25), backgroundColor: Colors.blue[900]),
           ],
           onTap: (index) {
             setState(() {
