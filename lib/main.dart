@@ -3,7 +3,6 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:task_app/models/user.dart';
 import 'package:task_app/screens/home/home.dart';
-import 'package:task_app/screens/home/widgets/tasks.dart';
 import 'package:task_app/screens/stats/stats.dart';
 import 'package:task_app/screens/localisation/localisation.dart';
 import 'package:task_app/screens/my_tasks/my_tasks.dart';
