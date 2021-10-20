@@ -23,7 +23,7 @@ class _SignUpState extends State<SignUp> {
   @override
   void initState() {
     super.initState();
-    this.checkAuthentication();
+    checkAuthentication();
   }
 
   signUp() async {
@@ -53,14 +53,14 @@ class _SignUpState extends State<SignUp> {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Text('ERROR'),
+            title: const Text('ERROR'),
             content: Text(errormessage),
             actions: <Widget>[
               FlatButton(
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
-                  child: Text('OK'))
+                  child: const Text('OK'))
             ],
           );
         });
@@ -75,7 +75,7 @@ class _SignUpState extends State<SignUp> {
           children: <Widget>[
             Container(
               height: 400,
-              child: Image(
+              child: const Image(
                 image: AssetImage("assets/images/avatar.png"),
                 fit: BoxFit.contain,
               ),
@@ -90,7 +90,7 @@ class _SignUpState extends State<SignUp> {
                           validator: (input) {
                             if (input!.isEmpty) return 'Enter Name';
                           },
-                          decoration: InputDecoration(
+                          decoration: const InputDecoration(
                             labelText: 'Name',
                             prefixIcon: Icon(Icons.person),
                           ),
@@ -101,7 +101,7 @@ class _SignUpState extends State<SignUp> {
                           validator: (input) {
                             if (input!.isEmpty) return 'Enter Email';
                           },
-                          decoration: InputDecoration(
+                          decoration: const InputDecoration(
                               labelText: 'Email',
                               prefixIcon: Icon(Icons.email)),
                           onSaved: (input) => _email = input!),
@@ -121,7 +121,7 @@ class _SignUpState extends State<SignUp> {
                     ),
                     SizedBox(height: 20),
                     RaisedButton(
-                      padding: EdgeInsets.fromLTRB(70, 10, 70, 10),
+                      padding: const EdgeInsets.fromLTRB(70, 10, 70, 10),
                       onPressed: signUp,
                       child: Text('SignUp',
                           style: TextStyle(
