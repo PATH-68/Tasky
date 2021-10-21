@@ -33,8 +33,8 @@ class MyApp extends StatelessWidget {
         home: const TheApp(),
         routes: <String, WidgetBuilder>{
           "signin": (BuildContext context) => Login(),
-          "signup": (BuildContext context) => SignUp(),
-          "logpage": (BuildContext context) => Logs(),
+          "signup": (BuildContext context) => const SignUp(),
+          "logpage": (BuildContext context) => const Logs(),
         },
       ),
     );

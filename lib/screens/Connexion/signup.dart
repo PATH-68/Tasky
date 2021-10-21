@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:task_app/services/auth.dart';
 
 class SignUp extends StatefulWidget {
+  const SignUp({Key? key}) : super(key: key);
+
   @override
   _SignUpState createState() => _SignUpState();
 }
 
 class _SignUpState extends State<SignUp> {
-  FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   late String _name, _email, _password;
@@ -24,28 +27,6 @@ class _SignUpState extends State<SignUp> {
   void initState() {
     super.initState();
     checkAuthentication();
-  }
-
-  signUp() async {
-    if (_formKey.currentState!.validate()) {
-      _formKey.currentState!.save();
-
-      try {
-        UserCredential user = await _auth.createUserWithEmailAndPassword(
-            email: _email, password: _password);
-        if (user != null) {
-          // UserUpdateInfo updateuser = UserUpdateInfo();
-          // updateuser.displayName = _name;
-          //  user.updateProfile(updateuser);
-          await _auth.currentUser!.updateProfile(displayName: _name);
-          // await Navigator.pushReplacementNamed(context,"/") ;
-
-        }
-      } catch (e) {
-        showError(e.toString());
-        print(e);
-      }
-    }
   }
 
   showError(String errormessage) {
@@ -70,75 +51,70 @@ class _SignUpState extends State<SignUp> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: SingleChildScrollView(
-      child: Container(
-        child: Column(
-          children: <Widget>[
-            Container(
-              height: 400,
-              child: const Image(
-                image: AssetImage("assets/images/avatar.png"),
-                fit: BoxFit.contain,
-              ),
+      child: Column(
+        children: <Widget>[
+          Container(
+            height: 400,
+            child: const Image(
+              image: AssetImage("assets/images/avatar.png"),
+              fit: BoxFit.contain,
             ),
-            Container(
-              child: Form(
-                key: _formKey,
-                child: Column(
-                  children: <Widget>[
-                    Container(
-                      child: TextFormField(
-                          validator: (input) {
-                            if (input!.isEmpty) return 'Enter Name';
-                          },
-                          decoration: const InputDecoration(
-                            labelText: 'Name',
-                            prefixIcon: Icon(Icons.person),
-                          ),
-                          onSaved: (input) => _name = input!),
+          ),
+          Form(
+            key: _formKey,
+            child: Column(
+              children: <Widget>[
+                TextFormField(
+                    validator: (input) {
+                      if (input!.isEmpty) return 'Enter Name';
+                    },
+                    decoration: const InputDecoration(
+                      labelText: 'Name',
+                      prefixIcon: Icon(Icons.person),
                     ),
-                    Container(
-                      child: TextFormField(
-                          validator: (input) {
-                            if (input!.isEmpty) return 'Enter Email';
-                          },
-                          decoration: const InputDecoration(
-                              labelText: 'Email',
-                              prefixIcon: Icon(Icons.email)),
-                          onSaved: (input) => _email = input!),
+                    onChanged: (input) => _name = input),
+                TextFormField(
+                    validator: (input) {
+                      if (input!.isEmpty) return 'Enter Email';
+                    },
+                    decoration: const InputDecoration(
+                        labelText: 'Email', prefixIcon: Icon(Icons.email)),
+                    onChanged: (input) => _email = input),
+                TextFormField(
+                    validator: (input) {
+                      if (input!.length < 6) {
+                        return 'Provide Minimum 6 Character';
+                      }
+                    },
+                    decoration: const InputDecoration(
+                      labelText: 'Password',
+                      prefixIcon: Icon(Icons.lock),
                     ),
-                    Container(
-                      child: TextFormField(
-                          validator: (input) {
-                            if (input!.length < 6)
-                              return 'Provide Minimum 6 Character';
-                          },
-                          decoration: InputDecoration(
-                            labelText: 'Password',
-                            prefixIcon: Icon(Icons.lock),
-                          ),
-                          obscureText: true,
-                          onSaved: (input) => _password = input!),
-                    ),
-                    SizedBox(height: 20),
-                    RaisedButton(
-                      padding: const EdgeInsets.fromLTRB(70, 10, 70, 10),
-                      onPressed: signUp,
-                      child: Text('SignUp',
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 20.0,
-                              fontWeight: FontWeight.bold)),
-                      color: Colors.orange,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20.0),
-                      ),
-                    )
-                  ],
-                ),
-              ),
+                    obscureText: true,
+                    onChanged: (input) => _password = input),
+                const SizedBox(height: 20),
+                RaisedButton(
+                  padding: const EdgeInsets.fromLTRB(70, 10, 70, 10),
+                  onPressed: () {
+                    if (_formKey.currentState!.validate()) {
+                      _formKey.currentState!.save();
+                      AuthService().signUp(_email, _password, _name, showError);
+                    }
+                  },
+                  child: const Text('SignUp',
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 20.0,
+                          fontWeight: FontWeight.bold)),
+                  color: Colors.orange,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20.0),
+                  ),
+                )
+              ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     ));
   }

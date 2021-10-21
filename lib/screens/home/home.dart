@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:task_app/screens/home/widgets/tasks.dart';
 import 'package:task_app/screens/home/widgets/topcard.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:google_sign_in/google_sign_in.dart';
+import 'package:task_app/services/auth.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -37,13 +37,6 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-  signOut() async {
-    _auth.signOut();
-
-    final googleSignIn = GoogleSignIn();
-    await googleSignIn.signOut();
-  }
-
   @override
   void initState() {
     super.initState();
@@ -74,7 +67,7 @@ class _HomePageState extends State<HomePage> {
                       Expanded(child: Tasks()),
                       RaisedButton(
                         padding: const EdgeInsets.fromLTRB(70, 10, 70, 10),
-                        onPressed: signOut,
+                        onPressed: () => AuthService().signOut(),
                         child: const Text('Signout',
                             style: TextStyle(
                                 color: Colors.white,
